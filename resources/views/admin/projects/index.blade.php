@@ -44,7 +44,7 @@
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->category }}</td>
                         <td>{{ $item->name }}</td>
-                        <td><span class="badge badge-success">{{ $item->is_completed == 1 ? 'Completed' : 'Not Completed'  }}</span></td>
+                        <td><span class="badge badge-{{ $item->is_completed == 1 ? 'success' : 'danger'  }}">{{ $item->is_completed == 1 ? 'Completed' : 'Not Completed'  }}</span></td>
                         <td>{{ $item->lawyerName }}</td>
                         <td>{{ $item->clientName }}</td> 
                         <td>

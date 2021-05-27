@@ -38,6 +38,7 @@ class ProjectController extends Controller
         //
         $laywers = User::where('role_id', 2)->get();
         $clients = User::where('role_id', 3)->get();
+
         return view('admin.projects.create', ['lawyers' => $laywers, 'clients' => $clients]);
 
     }
@@ -57,7 +58,7 @@ class ProjectController extends Controller
             'details'     => 'required',
             'lawyer_id'   => 'required',
             'client_id'   => 'required',
-            // 'is_complete' => 'nullable',
+            // 'is_completed' => 'nullable',
         ]);
 
         Project::create([
@@ -78,9 +79,12 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show($id)
     {
         //
+        $project = Project::where('id', $id)->first();
+
+        return view('admin.projects.show', ['project' => $project]);
     }
 
     /**
@@ -89,9 +93,14 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit($id)
     {
         //
+        $project = Project::where('id', $id)->first();
+        $laywers = User::where('role_id', 2)->get();
+        $clients = User::where('role_id', 3)->get();
+
+        return view('admin.projects.edit', ['lawyers' => $laywers, 'clients' => $clients, 'project' => $project]);
     }
 
     /**
@@ -101,9 +110,30 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+            'category'    => 'required',
+            'name'        => 'required',
+            'details'     => 'required',
+            'lawyer_id'   => 'required',
+            'client_id'   => 'required',
+            'is_completed' => 'nullable',
+        ]);
+
+        $project = Project::where('id', $id)->first();
+        $project->update([
+            'category'    => $request->input('category'),
+            'name'        => $request->input('name'),
+            'details'     => $request->input('details'),
+            'lawyer_id'   => $request->input('lawyer_id'),
+            'client_id'   => $request->input('client_id'),
+            'is_completed' => $request->input('is_completed'),
+        ]);
+
+        return redirect()->route('projects.index')->with('status','Project updated');
+
     }
 
     /**

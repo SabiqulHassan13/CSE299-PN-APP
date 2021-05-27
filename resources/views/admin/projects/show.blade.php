@@ -17,7 +17,9 @@
             <div class="collapse multi-collapse" id="multiCollapseExample1">
                 <div class="card">
                     <div class="card-body">
-                        <div class="mb-3">{!! $project->details !!}</div>
+                        <div class="mb-3">Project ID: {{ $project->id }}</div>
+                        <div class="mb-3">Project Name: {{ $project->name }}</div>
+                        <div class="mb-3">Project Details: {!! $project->details !!}</div>
                         <p>Created Date {{ $project->created_at }}</p>
                         <p>Updated Date {{ $project->updated_at }}</p>
                     </div>

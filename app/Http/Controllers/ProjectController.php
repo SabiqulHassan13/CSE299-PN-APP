@@ -19,14 +19,47 @@ class ProjectController extends Controller
     {
         //
         // $projects = Project::all();
+        $loadedProjects = [];
 
-        $projects =  DB::table('projects')
+        $adminProjects =  DB::table('projects')
             ->leftjoin('users AS lawyers', 'projects.lawyer_id', '=', 'lawyers.id')
             ->leftjoin('users AS clients', 'projects.client_id', '=', 'clients.id')
             ->select('projects.*', 'lawyers.name as lawyerName', 'clients.name as clientName')
             ->get();
 
-        return view('admin.projects.index', ['projects' => $projects]);
+        $lawyerProjects =  DB::table('projects')
+            ->where('lawyer_id', auth()->user()->id)
+            ->leftjoin('users AS lawyers', 'projects.lawyer_id', '=', 'lawyers.id')
+            ->leftjoin('users AS clients', 'projects.client_id', '=', 'clients.id')
+            ->select('projects.*', 'lawyers.name as lawyerName', 'clients.name as clientName')
+            ->get();
+
+        $clientProjects =  DB::table('projects')
+            ->where('client_id', auth()->user()->id)
+            ->leftjoin('users AS lawyers', 'projects.lawyer_id', '=', 'lawyers.id')
+            ->leftjoin('users AS clients', 'projects.client_id', '=', 'clients.id')
+            ->select('projects.*', 'lawyers.name as lawyerName', 'clients.name as clientName')
+            ->get();
+
+        if (auth()->user()->role_id == 1) {
+            $loadedProjects = $adminProjects;
+        }
+        else if (auth()->user()->role_id == 2) {
+            $loadedProjects = $lawyerProjects;
+        }
+        else if (auth()->user()->role_id == 3) {
+            $loadedProjects = $clientProjects;
+        }
+
+        return view('admin.projects.index', [
+            'loadedProjects' => $loadedProjects, 
+        ]);
+
+        // return view('admin.projects.index', [
+        //     'adminProjects' => $adminProjects, 
+        //     'lawyerProjects' => $lawyerProjects, 
+        //     'clientProjects' => $clientProjects
+        // ]);
     }
 
     /**

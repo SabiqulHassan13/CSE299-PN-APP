@@ -38,8 +38,8 @@
                       </tr>
                     </thead>
                     <tbody>
-
-                    @forelse ($projects as $item)
+               
+                    @forelse ($loadedProjects as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->category }}</td>

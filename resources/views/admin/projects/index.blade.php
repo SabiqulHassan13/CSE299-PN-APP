@@ -42,7 +42,16 @@
                     @forelse ($projects as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
-                        
+                        <td>{{ $item->category }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->is_completed }}</td>
+                        <td>{{ $item->lawyer_id }}</td>
+                        <td>{{ $item->client_id }}</td> 
+                        <td>
+                            <a href="{{ route('projects.show', [$item->id]) }}" class="btn btn-sm btn-info">View</a>
+                            <a href="{{ route('projects.edit', [$item->id]) }}" class="btn btn-sm btn-primary">Edit</a>
+                            <a href="{{ route('projects.destroy', [$item->id]) }}" class="btn btn-sm btn-danger">Delete</a>
+                        </td>                       
                     </tr>
                     @empty
                         <td colspan="7">No Projects</td>

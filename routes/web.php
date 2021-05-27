@@ -43,7 +43,11 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
     Route::get('/projects/create', [ProjectController::class, 'create'])->name('projects.create');
     Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
 
+    Route::get('/projects/{id}/show', [ProjectController::class, 'show'])->name('projects.show');
+
     Route::get('/projects/{id}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
+    Route::post('/projects/{id}', [ProjectController::class, 'update'])->name('projects.update');
+    Route::get('/projects/{id}/destroy', [ProjectController::class, 'destroy'])->name('projects.destroy');
 
 
 });

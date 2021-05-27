@@ -105,8 +105,12 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy($id)
     {
         //
+        $project = Project::where('id', $id)->first();
+        $project->delete();
+
+        return redirect()->route('projects.index')->with('status','Project deleted');
     }
 }

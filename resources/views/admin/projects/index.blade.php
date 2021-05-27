@@ -49,8 +49,8 @@
                         <td>{{ $item->clientName }}</td> 
                         <td>
                             <a href="{{ route('projects.show', [$item->id]) }}" class="btn btn-sm btn-info">View</a>
-                            <a href="{{ route('projects.edit', [$item->id]) }}" class="btn btn-sm btn-primary">Edit</a>
-                            <a href="{{ route('projects.destroy', [$item->id]) }}" class="btn btn-sm btn-danger">Delete</a>
+                            <a href="{{ route('projects.edit', [$item->id]) }}" class="btn btn-sm btn-primary {{ auth()->user()->role_id == 1 ? '' : 'd-none' }}">Edit</a>
+                            <a href="{{ route('projects.destroy', [$item->id]) }}" class="btn btn-sm btn-danger {{ auth()->user()->role_id == 1 ? '' : 'd-none' }}">Delete</a>
                         </td>                       
                     </tr>
                     @empty

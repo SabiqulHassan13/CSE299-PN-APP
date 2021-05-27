@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\User;
+use App\Models\Notice;
 use Illuminate\Http\Request;
 use DB;
 
@@ -83,8 +84,12 @@ class ProjectController extends Controller
     {
         //
         $project = Project::where('id', $id)->first();
+        $notices = Notice::where('project_id', $project->id)
+                    ->leftjoin('users', 'notices.user_id', '=', 'users.id')
+                    ->select('notices.*', 'users.name as noticerName', 'users.role_id as noticerRole')
+                    ->get();
 
-        return view('admin.projects.show', ['project' => $project]);
+        return view('admin.projects.show', ['project' => $project, 'notices' => $notices]);
     }
 
     /**

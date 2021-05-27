@@ -8,18 +8,20 @@
 <!-- <div class="container"> -->
     <div class="row">
         <div class="d-flex align-items-center justify-space-between mb-4 px-3">
-            <h1 class="h3 mb-0 text-gray-800">Project Detail</h1>
-
-            <button class="btn btn-primary ml-2" type="button" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample">Show Detail</button>  
+            <button class="btn btn-primary ml-2" type="button" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample">Show Project Detail</button>  
         </div>
     </div>
 
     <div class="row mb-5">
         <div class="col-md-12">
             <div class="collapse multi-collapse" id="multiCollapseExample1">
-            <div class="card card-body">
-                project details
-            </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">{!! $project->details !!}</div>
+                        <p>Created Date {{ $project->created_at }}</p>
+                        <p>Updated Date {{ $project->updated_at }}</p>
+                    </div>
+                </div>
             </div>
         </div>            
     </div>
@@ -33,12 +35,13 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="" method="">
+                        <form action="{{ route('notices.store') }}" method="POST">
                             @csrf 
 
+                            <input type="hidden" name="project_id" value="{{ $project->id }}">
                             <div class="form-group">
-                                <label for="">Notice</label>
-                                <textarea name="" id="" rows="7" class="form-control"></textarea>
+                                <label for="details">Notice</label>
+                                <textarea name="details" id="details" rows="7" class="form-control" required></textarea>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -53,14 +56,20 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="border px-3 py-2 ">
-                            <p>Notice - 1</p>
-                            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos consequatur neque quisquam temporibus expedita vitae assumenda reprehenderit? Soluta, reiciendis ad!</div>
-                            <p class="font-weight-bold">Added by John, <span class="font-italic">Laywer</span></p>
+                        @forelse ($notices as $item)   
+                        <div class="border px-3 py-2 my-2">            
+                            <p>Notice - {{ $loop->iteration }}</p>
+                            <div>{!! $item->details !!}</div>
+                            <p class="font-weight-bold">Added by {{ $item->noticerName}}</p>
                             <div>
-                                <a href="" class="btn btn-danger">Delete</a>
+                                <a href="{{ route('notices.destroy', ['noticeId' => $item->id]) }}" class="btn btn-danger">Delete</a>
                             </div>
                         </div>
+                        @empty
+                        <div class="border px-3 py-2 ">            
+                            <p>No Notice Available</p>                            
+                        </div>
+                        @endforelse
                     </div>
                     
                 </div>

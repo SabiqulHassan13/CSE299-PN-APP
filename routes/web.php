@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\NoticeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,11 +44,17 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
     Route::get('/projects/create', [ProjectController::class, 'create'])->name('projects.create');
     Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
 
-    Route::get('/projects/{id}/show', [ProjectController::class, 'show'])->name('projects.show');
-
     Route::get('/projects/{id}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
     Route::post('/projects/{id}', [ProjectController::class, 'update'])->name('projects.update');
     Route::get('/projects/{id}/destroy', [ProjectController::class, 'destroy'])->name('projects.destroy');
+
+
+    Route::get('/projects/{id}/show', [ProjectController::class, 'show'])->name('projects.show');
+
+
+    // Notice Part
+    Route::post('/notices', [NoticeController::class, 'store'])->name('notices.store');
+    Route::get('/notices/{noticeId}/destroy', [NoticeController::class, 'destroy'])->name('notices.destroy');
 
 
 });

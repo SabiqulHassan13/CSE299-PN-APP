@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use DB;
 
 class UserController extends Controller
 {
@@ -15,9 +16,23 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::all();
+        // $users = User::all();
         // return $users;
-        return view('admin.users.index', ['users' => $users]);
+        $loadedUsers = [];
+        $usersForAdmin = DB::table('users')->get();
+        // $usersForLawyer = DB::table('users')->where('role_id')->get();
+
+        // if (auth()->user()->role_id == 1) {
+        //     $loadedUsers = $adminProjects;
+        // }
+        // else if (auth()->user()->role_id == 2) {
+        //     $loadedUsers = $lawyerProjects;
+        // }
+        // else if (auth()->user()->role_id == 3) {
+        //     $loadedUsers = $clientProjects;
+        // }
+
+        return view('admin.users.index', ['users' => $usersForAdmin]);
     }
 
     /**

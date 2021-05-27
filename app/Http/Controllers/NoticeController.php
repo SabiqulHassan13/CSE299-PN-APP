@@ -95,5 +95,6 @@ class NoticeController extends Controller
         $notice = Notice::where('id', $noticeId)->first();
         $notice->delete();
 
+        return redirect()->back()->with('status','Notice deleted');
     }
 }

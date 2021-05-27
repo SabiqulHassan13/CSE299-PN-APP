@@ -34,7 +34,7 @@
           <span>Dashboard</span></a>
       </li>
       
-      <li class="nav-item">
+      <li class="nav-item {{ auth()->user()->role_id == 1 ? '' : 'd-none' }}">
         <a class="nav-link" href="{{ route('users.index') }}">
           <i class="fas fa-fw fa-circle"></i>
           <span>Users</span>

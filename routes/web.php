@@ -31,7 +31,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 
-Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => '/app', 'middleware' => ['auth']], function () {
 
     // User Part
     Route::get('/users', [UserController::class, 'index'])->name('users.index');

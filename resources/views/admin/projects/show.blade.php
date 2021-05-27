@@ -62,7 +62,7 @@
                             <div>{!! $item->details !!}</div>
                             <p class="font-weight-bold">Added by {{ $item->noticerName}}</p>
                             <div>
-                                <a href="{{ route('notices.destroy', ['noticeId' => $item->id]) }}" class="btn btn-danger">Delete</a>
+                                <a href="{{ route('notices.destroy', ['noticeId' => $item->id]) }}" class="btn btn-danger {{ auth()->user()->id == $item->user_id || auth()->user()->role_id == 1 ? '' : 'd-none'}} ">Delete</a>
                             </div>
                         </div>
                         @empty

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -15,6 +16,9 @@ class ProjectController extends Controller
     public function index()
     {
         //
+        $projects = Project::all();
+
+        return view('admin.projects.index', ['projects' => $projects]);
     }
 
     /**
@@ -25,6 +29,10 @@ class ProjectController extends Controller
     public function create()
     {
         //
+        $laywers = User::where('role_id', 2)->get();
+        $clients = User::where('role_id', 3)->get();
+        return view('admin.projects.create', ['lawyers' => $laywers, 'clients' => $clients]);
+
     }
 
     /**
@@ -36,6 +44,25 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'category'    => 'required',
+            'name'        => 'required',
+            'details'     => 'required',
+            'lawyer_id'   => 'required',
+            'client_id'   => 'required',
+            // 'is_complete' => 'nullable',
+        ]);
+
+        Project::create([
+            'category'    => $request->input('category'),
+            'name'        => $request->input('name'),
+            'details'     => $request->input('details'),
+            'lawyer_id'   => $request->input('lawyer_id'),
+            'client_id'   => $request->input('client_id'),
+        ]);
+
+        return redirect()->route('projects.index')->with('status','Project created');
+
     }
 
     /**

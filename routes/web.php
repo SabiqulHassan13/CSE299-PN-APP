@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +19,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::view('/admin', 'layouts.admin');
-
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/admin', [HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+});
+
+
+
+Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
+
+    // User Part
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::post('/users/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::get('/users/{id}/destroy', [UserController::class, 'destroy'])->name('users.destroy');
+
+});

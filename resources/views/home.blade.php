@@ -6,10 +6,17 @@
 
 @section('content')
 <!-- <div class="container"> -->
+    <div class="row">
+        <div class="d-flex align-items-center justify-space-between mb-4 px-3">
+            <h1 class="h3 mb-0 text-gray-800">Account Dashboard</h1>
+            <a href="" class="btn btn-primary ml-5">UPDATE PROFILE</a>
+        </div>
+    </div>
+
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Account Details') }}</div>
+                <!-- <div class="card-header">{{ __('Account Details') }}</div> -->
 
                 <div class="card-body">
                     @if (session('status'))

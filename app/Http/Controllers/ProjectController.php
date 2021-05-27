@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
+use DB;
 
 class ProjectController extends Controller
 {
@@ -16,7 +17,13 @@ class ProjectController extends Controller
     public function index()
     {
         //
-        $projects = Project::all();
+        // $projects = Project::all();
+
+        $projects =  DB::table('projects')
+            ->leftjoin('users AS lawyers', 'projects.lawyer_id', '=', 'lawyers.id')
+            ->leftjoin('users AS clients', 'projects.client_id', '=', 'clients.id')
+            ->select('projects.*', 'lawyers.name as lawyerName', 'clients.name as clientName')
+            ->get();
 
         return view('admin.projects.index', ['projects' => $projects]);
     }

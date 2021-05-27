@@ -44,9 +44,9 @@
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->category }}</td>
                         <td>{{ $item->name }}</td>
-                        <td>{{ $item->is_completed }}</td>
-                        <td>{{ $item->lawyer_id }}</td>
-                        <td>{{ $item->client_id }}</td> 
+                        <td><span class="badge badge-success">{{ $item->is_completed == 1 ? 'Completed' : 'Not Completed'  }}</span></td>
+                        <td>{{ $item->lawyerName }}</td>
+                        <td>{{ $item->clientName }}</td> 
                         <td>
                             <a href="{{ route('projects.show', [$item->id]) }}" class="btn btn-sm btn-info">View</a>
                             <a href="{{ route('projects.edit', [$item->id]) }}" class="btn btn-sm btn-primary">Edit</a>

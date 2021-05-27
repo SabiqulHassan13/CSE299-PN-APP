@@ -20,6 +20,16 @@
             .app-title {
                 font-weight: 700;
                 font-size: 5rem;
+                text-align: center;                
+            }
+
+            .app-author {
+                font-weight: 500;
+                font-size: 1.5rem;
+            }
+
+            .app-author a {
+                text-decoration: underline;
             }
         </style>
     </head>
@@ -40,9 +50,10 @@
             @endif
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">                    
+                <!-- <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">                     -->
                     <h1 class="app-title">PN APP</h1>
-                </div>
+                    <p class="app-author">Developed by <a href="">SabiqulHassan13</a></p>
+                <!-- </div> -->
             </div>
         </div>
     </body>

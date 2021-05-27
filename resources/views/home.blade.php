@@ -9,7 +9,7 @@
     <div class="row">
         <div class="d-flex align-items-center justify-space-between mb-4 px-3">
             <h1 class="h3 mb-0 text-gray-800">Account Dashboard</h1>
-            <a href="" class="btn btn-primary ml-5">UPDATE PROFILE</a>
+            <!-- <a href="" class="btn btn-primary ml-5">UPDATE PROFILE</a> -->
         </div>
     </div>
 

@@ -24,8 +24,8 @@
         <div class="col-md-12">      
 
             <div class="card">
-                <div class="table-responsive">
-                  <table class="table align-items-center table-flush">
+                <div class="table-responsive p-3">
+                  <table class="table align-items-center table-flush table-hover" id="dataTable">
                     <thead class="thead-light">
                       <tr>
                         <th>Project ID</th>
